@@ -5,7 +5,8 @@ import React, {useState, useEffect} from 'react';
 // the REST api returns a list of SectionDTO objects
 
 // the student can select a section and enroll
-// use the URL /enrollments?secNo= &studentId=
+// issue a POST with the URL /enrollments?secNo= &studentId=3
+// studentId=3 will be removed in assignment 7.
 
 const CourseEnroll = (props) => {
      
