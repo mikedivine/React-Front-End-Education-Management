@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import AdminUserUpdate from './UserUpdate';
-import AdminUserAdd from './UserAdd';
+import UserUpdate from './UserUpdate';
+import UserAdd from './UserAdd';
 import Button from '@mui/material/Button';
 import {SERVER_URL} from '../../Constants';
 
@@ -134,13 +134,13 @@ function UsersView(props) {
                           <td>{user.name}</td>
                           <td>{user.email}</td>
                           <td>{user.type}</td>
-                          <td><AdminUserUpdate user={user} save={saveUser} /></td>
+                          <td><UserUpdate user={user} save={saveUser} /></td>
                           <td><Button onClick={onDelete}>Delete</Button></td>
                           </tr>
                       ))}
                 </tbody>
             </table>
-            <AdminUserAdd save={addUser} />
+            <UserAdd save={addUser} />
         </>
     );
 }

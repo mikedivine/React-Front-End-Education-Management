@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import AdminSectionUpdate from './SectionUpdate';
-import AdminSectionAdd from './SectionAdd';
+import SectionUpdate from './SectionUpdate';
+import SectionAdd from './SectionAdd';
 import Button from '@mui/material/Button';
 import {SERVER_URL} from '../../Constants';
 
@@ -166,13 +166,13 @@ function SectionsView(props) {
                         <td>{s.building}</td>
                         <td>{s.room}</td>
                         <td>{s.times}</td>
-                        <td><AdminSectionUpdate section={s} save={saveSection} /></td>
+                        <td><SectionUpdate section={s} save={saveSection} /></td>
                         <td><Button onClick={onDelete}>Delete</Button></td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <AdminSectionAdd save={addSection} />
+            <SectionAdd save={addSection} />
         </div>
     );
 }
