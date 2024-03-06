@@ -20,7 +20,7 @@ function SectionsView(props) {
             setMessage("Enter search parameters");
         } else {
           try {
-            const response = await fetch(`${SERVER_URL}/course/${search.courseId}/sections?year=${search.year}&semester=${search.semester}`);
+            const response = await fetch(`${SERVER_URL}/courses/${search.courseId}/sections?year=${search.year}&semester=${search.semester}`);
             if (response.ok) {
               const data = await response.json();
               setSections(data);
@@ -32,51 +32,6 @@ function SectionsView(props) {
             setMessage("network error: "+err);
           }
         }
-    }
-
-    const saveSection = async (section) => {
-      try {
-        const response = await fetch (`${SERVER_URL}/sections`, 
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            }, 
-            body: JSON.stringify(section),
-          });
-        if (response.ok) {
-          setMessage("section saved");
-          fetchSections();
-        } else {
-          const rc = await response.json();
-          setMessage(rc.message);
-        }
-      } catch (err) {
-        setMessage("network error: "+err);
-      }
-    }
-
-    const addSection = async (section) => {
-      try {
-        const response = await fetch (`${SERVER_URL}/sections`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            }, 
-            body: JSON.stringify(section),
-          });
-        if (response.ok) {
-          const rc = await response.json();
-          setMessage("section added secno="+rc.secNo);
-          fetchSections();
-        } else {
-          const rc = await response.json();
-          setMessage(rc.message);
-        }
-      } catch (err) {
-        setMessage("network error: "+err);
-      }
     }
 
     const deleteSection = async (secNo) => {
@@ -133,20 +88,20 @@ function SectionsView(props) {
                 <tbody>
                 <tr>
                     <td>Course Prefix:</td>
-                    <td><input type="text" id="courseId" name="courseId" value={search.courseId} onChange={editChange} /></td>
+                    <td><input type="text" id="scourseId" name="courseId" value={search.courseId} onChange={editChange} /></td>
                 </tr>
                 <tr>
                     <td>Year:</td>
-                    <td><input type="text" id="year" name="year" value={search.year} onChange={editChange} /></td>
+                    <td><input type="text" id="syear" name="year" value={search.year} onChange={editChange} /></td>
                 </tr>
                 <tr>
                     <td>Semester:</td>
-                    <td><input type="text" id="semester" name="semester" value={search.semester} onChange={editChange} /></td>
+                    <td><input type="text" id="ssemester" name="semester" value={search.semester} onChange={editChange} /></td>
                 </tr>
                 </tbody>
             </table>
             <br/>
-            <button type="submit" onClick={fetchSections} >Search for Sections</button>
+            <button type="submit" id="search" onClick={fetchSections} >Search for Sections</button>
             <br/>
             <br/>
             <table className="Center" > 
@@ -166,13 +121,13 @@ function SectionsView(props) {
                         <td>{s.building}</td>
                         <td>{s.room}</td>
                         <td>{s.times}</td>
-                        <td><SectionUpdate section={s} save={saveSection} /></td>
+                        <td><SectionUpdate section={s} onClose={fetchSections} /></td>
                         <td><Button onClick={onDelete}>Delete</Button></td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <SectionAdd save={addSection} />
+            <SectionAdd  onClose={fetchSections} />
         </div>
     );
 }
