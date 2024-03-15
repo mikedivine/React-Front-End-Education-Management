@@ -19,7 +19,7 @@ const InstructorSectionsView = (props) => {
     const location = useLocation();
     const { year, semester } = location.state;
 
-    const [ sections, setSections ] = useState([   ]);
+    const [ sections, setSections ] = useState([]);
 
     const [ message, setMessage ] = useState('');
 
@@ -64,10 +64,10 @@ const InstructorSectionsView = (props) => {
                         <td>{s.room}</td>
                         <td>{s.times}</td>
                         <td>
-                            <Link to="/assignments" state={sections}>View Assignments</Link>
+                            <Link to="/assignments" state={s}>View Assignments</Link>
                         </td>
                         <td>
-                            <Link to="/enrollments" state={sections}>View Enrollments</Link>
+                            <Link to="/enrollments" state={s}>View Enrollments</Link>
                         </td>
                     </tr>
                 ))}
