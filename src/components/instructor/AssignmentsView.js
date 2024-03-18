@@ -1,6 +1,11 @@
 import {SERVER_URL} from '../../Constants';
 import React, {useState, useEffect} from 'react';
 import {Link, useLocation} from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import AssignmentUpdate from './AssignmentUpdate';
+import AssignmentAdd from './AssignmentAdd';
+import Button from '@mui/material/Button';
 
 // instructor views assignments for their section
 // use location to get the section value 
@@ -39,8 +44,91 @@ const AssignmentsView = (props) => {
         fetchAssignments();
     }, [secNo])
 
+    const saveAssignment = async (assignment) => {
+        try {
+          const response = await fetch (`${SERVER_URL}/assignments?instructorEmail=dwisneski@csumb.edu`, 
+              {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                }, 
+                body: JSON.stringify(assignment),
+              });
+          if (response.ok) {
+            setMessage("Assignment saved")
+            fetchAssignments();
+          } else {
+            const json = await response.json();
+            setMessage("response error: " + json.message);
+          }
+        } catch (err) {
+          setMessage("network error: " + err);
+        }
+      }
+  
+      const addAssignment = async (assignment) => {
+        try {
+          const response = await fetch (`${SERVER_URL}/assignments?instructorEmail=dwisneski@csumb.edu`, 
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                }, 
+                body: JSON.stringify(assignment),
+              });
+          if (response.ok) {
+            setMessage("Assignment added")
+            fetchAssignments();
+          } else {
+            const rc = await response.json();
+            setMessage(rc.message);
+          }
+        } catch (err) {
+          setMessage("network error: " + err);
+        }
+      }
+  
+      const deleteAssignment = async (assignmentId) => {
+        try {
+          const response = await fetch (`${SERVER_URL}/assignments/${assignmentId}`, 
+              {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                }, 
+              });
+          if (response.ok) {
+            setMessage("Assignment deleted");
+            fetchAssignments();
+          } else {
+            const rc = await response.json();
+            setMessage("Delete failed " + rc.message);
+          }
+        } catch (err) {
+          setMessage("network error: " + err);
+        }
+      }
+      
+      const onDelete = (e) => {
+        const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
+        const assignmentId = assignments[row_idx].assignmentId;
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Do you really want to delete?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => deleteAssignment(assignmentId)
+              },
+              {
+                label: 'No',
+              }
+            ]
+          });
+      }
+
     return(
-        <> 
+        <div> 
             <h3>Assignments</h3>
             <h4>{message}</h4>
             <table className="Center">
@@ -58,19 +146,15 @@ const AssignmentsView = (props) => {
                         <td>{a.courseId}</td>
                         <td>{a.secId}</td>
                         <td>{a.secNo}</td>
-                        <td>
-                            <Link to="/editAssignments" state={assignments}>Edit</Link>
-                        </td>
-                        <td>
-                            <Link to="/gradeAssignments" state={assignments}>Grade</Link>
-                        </td>
+                        <td><AssignmentUpdate assignment={a} save={saveAssignment} /></td>
+                        <td><Button onClick={onDelete}>Delete</Button></td>
                     </tr>
                 ))}
                 </tbody>
 
             </table>
-
-        </>
+            <AssignmentAdd save={addAssignment} />
+        </div>
     );
 }
 
