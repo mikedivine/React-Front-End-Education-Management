@@ -14,7 +14,7 @@ import InstructorHome from './components/instructor/InstructorHome';
 import AssignmentsView from './components/instructor/AssignmentsView';
 import EnrollmentsView from './components/instructor/EnrollmentsView';
 import InstructorSectionsView from './components/instructor/InstructorSectionsView';
-
+import CourseEnrollment from './components/student/CourseEnroll';
 
 function App() {
 
@@ -22,6 +22,7 @@ function App() {
   // when login is implemented, the user type will come from the logged in user's ROLE.
 
   const userType = 'STUDENT'; // change to INSTRUCTOR or STUDENT for testing.
+
 
   if (userType==='ADMIN') {
     return (
@@ -48,6 +49,7 @@ function App() {
               <Route path="schedule" element={<ScheduleView />} />
               <Route path="studentAssignments" element={<StudentAssignmentsView />} />
               <Route path="transcript" element={<Transcript />} />
+              <Route path="addCourse" element={<CourseEnrollment />} />
             </Route>
           </Routes>
         </BrowserRouter>
