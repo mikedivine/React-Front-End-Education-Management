@@ -23,7 +23,7 @@ const AssignmentAdd = (props)  => {
     const editOpen = () => {
         setOpen(true);
         setEditMessage('');
-        setAssignment(props.assignment);
+        setAssignment(props.theAssignment);
     };
 
     const editClose = () => {
@@ -54,9 +54,9 @@ const AssignmentAdd = (props)  => {
                 <DialogTitle>Add Assignment</DialogTitle>
                 <DialogContent style={{paddingTop: 20}} >
                     <h4>{editMessage}</h4>
-                    <TextField style={{padding:10}} fullWidth label="title" name="title"
+                    <TextField style={{padding:10}} fullWidth label="Assignment Title" name="title"
                         value={assignment.title} onChange={editChange} /> 
-                    <input type="date" style={{padding:10}} fullWidth label="dueDate" name="dueDate"
+                    Due Date: <input type="date" style={{padding:15, margin:10}} fullWidth label="dueDate" name="dueDate"
                         value={assignment.dueDate} onChange={editChange} />
                     <input type="hidden" name="courseId" value={assignment.courseId} />
                     <input type="hidden" name="secId" value={assignment.secId} />

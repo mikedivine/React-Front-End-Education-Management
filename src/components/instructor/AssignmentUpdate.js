@@ -58,7 +58,7 @@ const AssignmentUpdate = (props)  => {
                     value={assignment.id} readOnly /> 
                   <TextField style={{padding:10}} autoFocus fullWidth label="Title" name="title"
                     value={assignment.title} onChange={editChange} /> 
-                  <input type="date" style={{padding:15, margin:10}} label="Due Date" name="dueDate"
+                  Due Date: <input type="date" style={{padding:15, margin:10}} label="Due Date" name="dueDate"
                         value={assignment.dueDate} onChange={editChange} />
                   <TextField style={{padding:10}} fullWidth label="Course ID" name="courseId"
                     value={assignment.courseId} readOnly />

@@ -24,6 +24,8 @@ const AssignmentsView = (props) => {
 
     const [ assignments, setAssignments ] = useState([]);
     const [ message, setMessage ] = useState('');
+
+    const newAssignment = [{'id':null, 'title':"",'dueDate':"", 'courseId':courseId, 'secId':secId, 'secNo':secNo}];
     
     const fetchAssignments = async () => {
         try{
@@ -33,7 +35,7 @@ const AssignmentsView = (props) => {
                 setAssignments(assignments);
             } else {
                 const json = await response.json();
-                setMessage("response error: " + json.message)
+                setMessage("response error: " + json.message);
             }
         } catch (err) {
             setMessage("network error: " + err);
@@ -90,7 +92,7 @@ const AssignmentsView = (props) => {
   
       const deleteAssignment = async (assignmentId) => {
         try {
-          const response = await fetch (`${SERVER_URL}/assignments/${assignmentId}`, 
+          const response = await fetch (`${SERVER_URL}/assignments/${assignmentId}?instructorEmail=dwisneski@csumb.edu`, 
               {
                 method: 'DELETE',
                 headers: {
@@ -111,10 +113,11 @@ const AssignmentsView = (props) => {
       
       const onDelete = (e) => {
         const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
-        const assignmentId = assignments[row_idx].assignmentId;
+        const assignmentId = assignments[row_idx].id;
         confirmAlert({
             title: 'Confirm to delete',
-            message: 'Do you really want to delete?',
+            message: 'Do you really want to delete this assignment? ' +
+              ' All grades related to this assignment will be deleted as well.',
             buttons: [
               {
                 label: 'Yes',
@@ -153,7 +156,7 @@ const AssignmentsView = (props) => {
                 </tbody>
 
             </table>
-            <AssignmentAdd save={addAssignment} />
+            <AssignmentAdd save={addAssignment} theAssignment={assignments[0]} />
         </div>
     );
 }
