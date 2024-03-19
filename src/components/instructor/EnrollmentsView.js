@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 import {SERVER_URL} from '../../Constants';
+import Button from "@mui/material/Button";
 
 // instructor view list of students enrolled in a section 
 // use location to get section no passed from InstructorSectionsView
@@ -51,16 +52,16 @@ const EnrollmentsView = (props) => {
     }
 
 
-    const saveEnrollment = async (enrollment) => {
+    const saveEnrollment = async () => {
         try {
-            console.log(JSON.stringify(enrollment));
+            console.log(JSON.stringify(enrollments));
             const response = await fetch(`${SERVER_URL}/enrollments?instructorEmail=dwisneski@csumb.edu`,
                 {
                     method: 'PUT',
                     headers: {
                         'Content-Type':'application/json',
                     },
-                    body: JSON.stringify(enrollment),
+                    body: JSON.stringify(enrollments),
                 });
             if (response.ok) {
                 setMessage('Enrollment Save');
@@ -98,15 +99,11 @@ const EnrollmentsView = (props) => {
                                    onChange={(e) => onGradeChange(enrollment.enrollmentId, e.target.value)}
                             />
                         </td>
-                        <td>
-                            <button onClick={() => saveEnrollment(enrollment)}>
-                                Save
-                            </button>
-                        </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+            <Button onClick={saveEnrollment}>Save Enrollments</Button>
         </>
     );
 }
