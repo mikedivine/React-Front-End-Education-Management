@@ -34,13 +34,13 @@ const CourseEnrollAdd = (props)  => {
     return (
         <>
             <Button onClick={editOpen}>Enroll</Button>
-            <Dialog open={open} >
+            <Dialog open={open}>
                 <DialogTitle>Are you sure you want to Enroll for this Course </DialogTitle>
                 <DialogContent  style={{paddingTop: 20}} >
                     <h4>{editMessage}</h4>
-                    <TextField style={{padding:10}} autoFocus fullWidth label="courseId" name="courseId" value={section.courseId}  InputProps={{readOnly: true, }}  />
-                    <TextField style={{padding:10}} fullWidth label="title" name="title" value={section.year} InputProps={{readOnly: true, }}   />
-                    <TextField style={{padding:10}} fullWidth label="credits" name="credits" value={section.semester} InputProps={{readOnly: true, }}   />
+                    <TextField style={{padding:10}} autoFocus fullWidth label="courseId" name="courseId" value={section.courseId}  InputProps={{readOnly: true}}  />
+                    <TextField style={{padding:10}} fullWidth label="title" name="title" value={section.year} InputProps={{readOnly: true}}   />
+                    <TextField style={{padding:10}} fullWidth label="semester" name="semester" value={section.semester} InputProps={{readOnly: true}}   />
                 </DialogContent>
                 <DialogActions>
                     <Button color="secondary" onClick={editClose}>No</Button>
