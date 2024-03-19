@@ -36,6 +36,32 @@ const CourseEnroll = (props) => {
             fetchSections();
         },
         []);
+    
+    const enrollClass = async (e) => {
+        const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
+        const secNo = sections[row_idx].secNo;
+        setMessage(secNo);
+        try{
+            const response = await fetch (`${SERVER_URL}/enrollments/sections/${secNo}?studentId=3`, 
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            });
+            if (response.ok) {
+                setMessage("Class added");
+                fetchSections();
+            } else {
+                const json = await response.json();
+                setMessage("response error: " + json.message);
+            }
+        } catch (err) {
+            setMessage("network error: " + err);
+            // setMessage(secNo);
+
+        }
+    };
  
     return(
         <div>
@@ -58,8 +84,7 @@ const CourseEnroll = (props) => {
                         <td>{sec.building}</td>
                         <td>{sec.room}</td>
                         <td>{sec.times}</td>
-                        {/*<td><SectionUpdate section={sec} onClose={fetchSections}/></td>*/}
-                        {/*<td><Button onClick={onDelete}>Delete</Button></td>*/}
+                        <td><Button onClick={enrollClass}>Add</Button></td>
                     </tr>
                 ))}
                 </tbody>
