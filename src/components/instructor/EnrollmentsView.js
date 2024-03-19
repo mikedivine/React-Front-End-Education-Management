@@ -52,7 +52,7 @@ const EnrollmentsView = (props) => {
     }
 
 
-    const saveEnrollment = async () => {
+    const saveEnrollments = async () => {
         try {
             console.log(JSON.stringify(enrollments));
             const response = await fetch(`${SERVER_URL}/enrollments?instructorEmail=dwisneski@csumb.edu`,
@@ -103,7 +103,7 @@ const EnrollmentsView = (props) => {
                 ))}
                 </tbody>
             </table>
-            <Button onClick={saveEnrollment}>Save Enrollments</Button>
+            <Button onClick={saveEnrollments}>Save Enrollments</Button>
         </>
     );
 }

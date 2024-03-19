@@ -33,8 +33,7 @@ const AssignmentsStudentView = (props) => {
 
     useEffect(() => {
             fetchAssignments();
-        },
-        []);
+        });
      
     return (
         <div>
@@ -52,7 +51,6 @@ const AssignmentsStudentView = (props) => {
                         <td>{a.courseId}</td>
                         <td>{a.title}</td>
                         <td>{a.dueDate}</td>
-                        <td>{a.id}</td>
                         <td>{a.score}</td>
                     </tr>
                 ))}
