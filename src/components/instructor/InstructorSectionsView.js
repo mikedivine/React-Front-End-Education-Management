@@ -23,7 +23,7 @@ const InstructorSectionsView = (props) => {
 
     const [ message, setMessage ] = useState('');
 
-    const fetchCourses = async () => {
+    const fetchSections = async () => {
         try{
             const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year=${year}&semester=${semester}`);
             if (response.ok){
@@ -31,18 +31,16 @@ const InstructorSectionsView = (props) => {
                 setSections(sections);
             } else {
                 const json = await response.json();
-                setMessage("response error: "+json.message)
+                setMessage("response error: " + json.message)
             }
         } catch (err) {
-            setMessage("network error: "+err);
+            setMessage("network error: " + err);
         }
     }
 
     useEffect(() => {
-        fetchCourses();
+        fetchSections();
     }, [year, semester])
-
-    
      
     return(
         <> 
