@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import SectionUpdate from "../admin/SectionUpdate";
 import Button from "@mui/material/Button";
 import {SERVER_URL} from "../../Constants";
-import CourseEnrollUpdate from "./CourseEnrollUpdate";
+import CourseEnrollAdd from "./CourseEnrollAdd";
 import {confirmAlert} from "react-confirm-alert";
 
 // students displays a list of open sections for a 
@@ -56,6 +56,7 @@ const CourseEnroll = (props) => {
         });
     }
     const onEnroll = async (sectionId) => {
+        console.log(sectionId);
         try {
             const response = await fetch (`${SERVER_URL}/enrollments?secNo=${sectionId} &studentId=3`,
                 {
@@ -98,8 +99,8 @@ const CourseEnroll = (props) => {
                         <td>{sec.building}</td>
                         <td>{sec.room}</td>
                         <td>{sec.times}</td>
-                        {/*<td><CourseEnrollUpdate section={sec} onClose={fetchSections}/></td>*/}
-                        <td><Button onClick={onEnrollAlert}>Enroll</Button></td>
+                        <td><CourseEnrollAdd section={sec} onClose={fetchSections}/></td>
+                        {/*<td><Button onClick={onEnrollAlert}>Enroll</Button></td>*/}
                     </tr>
                 ))}
                 </tbody>
