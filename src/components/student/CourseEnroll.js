@@ -13,7 +13,7 @@ import {SERVER_URL} from "../../Constants";
 
 const CourseEnroll = (props) => {
 
-    const headers = ['SecNo', 'CourseId', 'SecId',  'Year', 'Semester', 'Building', 'Room', 'Times', '', ''];
+    const headers = ['Section #', 'Course Title', 'Course Id', 'Section Id',  'Year', 'Semester', 'Building', 'Room', 'Times', ''];
     const[sections, setSections] = useState([ ]);
     const [ message, setMessage ] = useState('');
 
@@ -77,6 +77,7 @@ const CourseEnroll = (props) => {
                 {sections.map((sec) => (
                     <tr key={sec.secNo}>
                         <td>{sec.secNo}</td>
+                        <td>{sec.courseTitle}</td>
                         <td>{sec.courseId}</td>
                         <td>{sec.secId}</td>
                         <td>{sec.year}</td>

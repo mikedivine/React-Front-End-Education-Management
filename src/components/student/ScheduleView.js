@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {SERVER_URL} from '../../Constants';
+import {Link, useLocation} from "react-router-dom";
+import Button from "@mui/material/Button";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 // student can view schedule of sections 
 // use the URL /enrollment?studentId=3&year= &semester=
@@ -11,8 +15,7 @@ import {SERVER_URL} from '../../Constants';
 
 const ScheduleView = (props) => {
     
-    const headers = ['SecNo', 'CourseId', 'SecId',  'Year', 'Semester', 'Building', 'Room', 'Times', '', ''];
-
+    const headers = ['Section #', 'Course Title', 'Course Id', 'Section Id',  'Year', 'Semester', 'Building', 'Room', 'Times'];
 
     const [scheduleClasses, setScheduleClasses]  = useState([   ]);
     const [ message, setMessage] = useState('');
@@ -24,9 +27,7 @@ const ScheduleView = (props) => {
         } else {
             try {
                 const response = await fetch(`${SERVER_URL}/enrollments?year=${search.year}&semester=${search.semester}&studentId=${search.studentId}`);
-                //test values:
-                //studentId=3, year=2024, semester=Spring
-                //studentId=3, year=2023, semester=Fall
+
                 if (response.ok) {
                     const data = await response.json();
                     setScheduleClasses(data);
@@ -35,7 +36,7 @@ const ScheduleView = (props) => {
                     setMessage(rc.message);
                 }
             } catch (err) {
-                setMessage("network error: " +err);
+                setMessage("network error: " + err);
             }
         }
     }
@@ -46,6 +47,47 @@ const ScheduleView = (props) => {
 
     const editChange = (event) => {
         setSearch({...search, [event.target.name]:event.target.value});
+    }
+
+    const dropCourse = async (enrollmentId) => {
+        try {
+          const response = await fetch (`${SERVER_URL}/enrollments/${enrollmentId}?studentId=3`, 
+              {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                }, 
+              });
+          if (response.ok) {
+            setMessage("Course Dropped");
+            fetchSchedule();
+          } else {
+            const rc = await response.json();
+            setMessage("Drop failed " + rc.message);
+          }
+        } catch (err) {
+          setMessage("network error: " + err);
+        }
+    }
+
+    const onDrop = (e) => {
+        const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
+        const enrollmentId = scheduleClasses[row_idx].enrollmentId;
+        const courseTitle = scheduleClasses[row_idx].courseTitle;
+        confirmAlert({
+            title: 'Confirm to Drop Course',
+            message: 'Do you really want to drop ' + courseTitle + 
+                '.  All graded assignments will be deleted.',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => dropCourse(enrollmentId)
+              },
+              {
+                label: 'No',
+              }
+            ]
+        });
     }
    
     return(
@@ -81,22 +123,23 @@ const ScheduleView = (props) => {
                 </thead>
                 <tbody>
                 {scheduleClasses.map((s) => (
-                        <tr key={s.secNo}>
-                        <td>{s.sectionNo}</td>
-                        <td>{s.courseId}</td>
-                        <td>{s.sectionId}</td>
-                        <td>{s.year}</td>
-                        <td>{s.semester}</td>
-                        <td>{s.building}</td>
-                        <td>{s.room}</td>
-                        <td>{s.times}</td>
-                        {/* <td><SectionUpdate section={s} onClose={fetchSchedule} /></td> */}
-                        {/* <td><Button onClick={onDelete}>Delete</Button></td> */}
+                        <tr key={s.enrollmentId}>
+                            <td>{s.sectionNo}</td>
+                            <td>{s.courseTitle}</td>
+                            <td>{s.courseId}</td>
+                            <td>{s.sectionId}</td>
+                            <td>{s.year}</td>
+                            <td>{s.semester}</td>
+                            <td>{s.building}</td>
+                            <td>{s.room}</td>
+                            <td>{s.times}</td>
+                            <td>
+                                <Button onClick={onDrop}>Drop Course</Button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {/* <SectionAdd  onClose={fetchSchedule} /> */}
 
         </ >
     );
