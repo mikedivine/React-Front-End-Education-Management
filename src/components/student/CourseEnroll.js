@@ -80,7 +80,7 @@ const CourseEnroll = (props) => {
                         <td>{sec.building}</td>
                         <td>{sec.room}</td>
                         <td>{sec.times}</td>
-                        <CourseEnrollAdd save={addEnrollment} section={sec.secNo} onClose={fetchSections} />
+                        <CourseEnrollAdd save={addEnrollment} section={sec} onClose={fetchSections} />
                     </tr>
                 ))}
                 </tbody>
