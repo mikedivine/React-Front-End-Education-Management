@@ -15,6 +15,7 @@ import AssignmentsView from './components/instructor/AssignmentsView';
 import EnrollmentsView from './components/instructor/EnrollmentsView';
 import InstructorSectionsView from './components/instructor/InstructorSectionsView';
 import CourseEnrollment from './components/student/CourseEnroll';
+import AssignmentGrade from './components/instructor/AssignmentGrade';
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
             <Route path="/" element={<InstructorLayout />}>
               <Route index element={<InstructorHome />} />
               <Route path="assignments" element={<AssignmentsView />} />
+              <Route path="assignmentGrades" element={<AssignmentGrade />} />
               <Route path="enrollments" element={<EnrollmentsView />} />
               <Route path="sections" element={<InstructorSectionsView />} />
             </Route>

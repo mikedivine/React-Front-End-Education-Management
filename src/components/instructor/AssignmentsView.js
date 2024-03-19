@@ -20,13 +20,11 @@ const AssignmentsView = (props) => {
     const headers = ['Assignment ID', 'Assignment Title','Due Date', 'Course ID', 'Section ID', 'Section No.']
     
     const location = useLocation();
-    const {secNo, courseId, secId} = location.state;
+    const {secNo} = location.state;
 
     const [ assignments, setAssignments ] = useState([]);
     const [ message, setMessage ] = useState('');
 
-    const newAssignment = [{'id':null, 'title':"",'dueDate':"", 'courseId':courseId, 'secId':secId, 'secNo':secNo}];
-    
     const fetchAssignments = async () => {
         try{
             const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments?instructorEmail=dwisneski@csumb.edu`);
@@ -149,6 +147,7 @@ const AssignmentsView = (props) => {
                         <td>{a.courseId}</td>
                         <td>{a.secId}</td>
                         <td>{a.secNo}</td>
+                        <td><Link to="/assignmentGrades" state={{assignmentId:a.id, assignmentTitle:a.title}}>Grade</Link></td>
                         <td><AssignmentUpdate assignment={a} save={saveAssignment} /></td>
                         <td><Button onClick={onDelete}>Delete</Button></td>
                     </tr>
