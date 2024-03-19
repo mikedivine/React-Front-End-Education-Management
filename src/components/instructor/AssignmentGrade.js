@@ -60,8 +60,15 @@ const AssignmentGrade = (props) => {
         }
     }
 
-    const editChange = (index, score) => {
-        grades[index].score = score;
+    const onScoreChange = (gradeId, score) => {
+        // grades[index].score = score;
+        const updateGrade = grades.map((grade) => {
+            if (grade.gradeId === gradeId) {
+                return {...grade, score: score};
+            }
+            return grade;
+        });
+        setGrades(updateGrade);
     }
 
     useEffect(() => {
@@ -85,8 +92,13 @@ const AssignmentGrade = (props) => {
                         <td>{g.studentName}</td>
                         <td>{g.studentEmail}</td>
                         <td>
-                            <TextField style={{padding:0,width:100}} name="score"
-                                value={g.score} onChange={editChange(idx,g.score)} />
+                            <input type="text"
+                                   name="score"
+                                   value={g.score}
+                                   onChange={(e) => onScoreChange(g.gradeId, e.target.value)}
+                            />
+                            {/* <TextField style={{padding:0,width:100}} name="score"
+                                value={g.score} onChange={editChange(idx,g.score)} /> */}
                         </td>
                     </tr>
                 ))}
