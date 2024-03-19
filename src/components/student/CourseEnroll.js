@@ -4,7 +4,7 @@ import CourseEnrollAdd from "./CourseEnrollAdd";
 import SectionUpdate from "../admin/SectionUpdate";
 import Button from "@mui/material/Button";
 
-// students displays a list of open sections for a 
+// students displays a list of open sections for a
 // use the URL /sections/open
 // the REST api returns a list of SectionDTO objects
 
@@ -37,31 +37,27 @@ const CourseEnroll = (props) => {
             fetchSections();
         },
         []);
-
-    const enrollClass = async (e) => {
-        const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
-        const secNo = sections[row_idx].secNo;
-        setMessage(secNo);
-        try{
-            const response = await fetch (`${SERVER_URL}/enrollments/sections/${secNo}?studentId=3`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              }
-            });
+    const addEnrollment = async (section) => {
+        try {
+            const response = await fetch (`${SERVER_URL}/enrollments?secNo=${section}&studentId=3`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(section),
+                });
             if (response.ok) {
-                setMessage("Class added");
+                setMessage("Section Enrolled")
                 fetchSections();
             } else {
-                const json = await response.json();
-                setMessage("response error: " + json.message);
+                const rc = await response.json();
+                setMessage(rc.message);
             }
         } catch (err) {
-            setMessage("network error: " + err)
-
+            setMessage("network error: " + err);
         }
-    };
+    }
 
     return(
         <div>
@@ -84,7 +80,7 @@ const CourseEnroll = (props) => {
                         <td>{sec.building}</td>
                         <td>{sec.room}</td>
                         <td>{sec.times}</td>
-                        <CourseEnrollAdd save={enrollClass} section={sec.secNo} onClose={fetchSections}/>
+                        <CourseEnrollAdd save={addEnrollment} section={sec.secNo} onClose={fetchSections} />
                     </tr>
                 ))}
                 </tbody>
