@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import SectionUpdate from "../admin/SectionUpdate";
-import Button from "@mui/material/Button";
 import {SERVER_URL} from "../../Constants";
 import CourseEnrollAdd from "./CourseEnrollAdd";
-import {confirmAlert} from "react-confirm-alert";
 
 // students displays a list of open sections for a 
 // use the URL /sections/open
@@ -38,33 +35,15 @@ const CourseEnroll = (props) => {
             fetchSections();
         },
         []);
-    const onEnrollAlert = (e) => {
-        const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
-        const sectionId = sections[row_idx].sectionId;
-        confirmAlert({
-            title: 'Confirm to Enroll',
-            message: 'Do you really want to enroll?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => onEnroll(sectionId)
-                },
-                {
-                    label: 'No',
-                }
-            ]
-        });
-    }
-    const onEnroll = async (sectionId) => {
-        console.log(sectionId);
+    const addEnrollment = async (secNo) => {
         try {
-            const response = await fetch (`${SERVER_URL}/enrollments?secNo=${sectionId} &studentId=3`,
+            const response = await fetch (`${SERVER_URL}/enrollments?secNo=${secNo}&studentId=3`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(sectionId),
+                    body: JSON.stringify(secNo),
                 });
             if (response.ok) {
                 setMessage("Section Enrolled")
@@ -99,8 +78,7 @@ const CourseEnroll = (props) => {
                         <td>{sec.building}</td>
                         <td>{sec.room}</td>
                         <td>{sec.times}</td>
-                        <td><CourseEnrollAdd section={sec} onClose={fetchSections}/></td>
-                        {/*<td><Button onClick={onEnrollAlert}>Enroll</Button></td>*/}
+                        <CourseEnrollAdd save={addEnrollment} section={sec.secNo} onClose={fetchSections}/>
                     </tr>
                 ))}
                 </tbody>

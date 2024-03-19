@@ -26,11 +26,6 @@ const CourseEnrollAdd = (props)  => {
         setSection({secNo:'', CourseID:'', Year:'', Semester:'', Building:'',Room:'',Times:''});
 
     };
-
-    const editChange = (event) => {
-        setSection({...section,  [event.target.name]:event.target.value})
-    }
-
     const onSave = () => {
         props.save(section);
         editClose();
