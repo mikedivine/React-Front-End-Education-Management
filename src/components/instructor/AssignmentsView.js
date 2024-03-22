@@ -131,7 +131,7 @@ const AssignmentsView = (props) => {
     return(
         <div> 
             <h3>Assignments</h3>
-            <h4>{message}</h4>
+            <h4 id="message">{message}</h4>
             <table className="Center">
                 <thead>
                 <tr>
