@@ -65,8 +65,7 @@ const EnrollmentsView = (props) => {
                     body: JSON.stringify(enrollments),
                 });
             if (response.ok) {
-                setMessage('Grades Saved');
-                fetchEnrollments();
+                setMessage('Enrollment Saved');
             } else {
                 const json = await response.json();
                 setMessage('response error: '+json.message);
