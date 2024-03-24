@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 
 const AssignmentsView = (props) => {
 
-    const headers = ['Assignment ID', 'Assignment Title','Due Date', 'Course ID', 'Section ID', 'Section No.']
+    const headers = ['Assignment ID', 'Course Title', 'Assignment Title','Due Date', 'Course ID', 'Section ID', 'Section No.']
     
     const location = useLocation();
     const {secNo} = location.state;
@@ -131,7 +131,7 @@ const AssignmentsView = (props) => {
     return(
         <div> 
             <h3>Assignments</h3>
-            <h4>{message}</h4>
+            <h4 id="message">{message}</h4>
             <table className="Center">
                 <thead>
                 <tr>
@@ -142,6 +142,7 @@ const AssignmentsView = (props) => {
                 {assignments.map((a) => (
                     <tr key = {a.id}>
                         <td>{a.id}</td>
+                        <td>{a.courseTitle}</td>
                         <td>{a.title}</td>
                         <td>{a.dueDate}</td>
                         <td>{a.courseId}</td>

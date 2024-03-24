@@ -12,7 +12,7 @@ import {SERVER_URL} from "../../Constants";
 // display a table with columns  Course Id, Assignment Title, Assignment DueDate, Score
 
 const AssignmentsStudentView = (props) => {
-    const headers = ['Course ID', 'Assignment Title', 'Assignment DueDate', 'Score'];
+    const headers = ['Course ID', 'Course Title', 'Assignment Title', 'Assignment DueDate', 'Score'];
     const[assignments, setAssignments] = useState([ ]);
     const [ message, setMessage ] = useState('');
 
@@ -33,8 +33,7 @@ const AssignmentsStudentView = (props) => {
 
     useEffect(() => {
             fetchAssignments();
-        },
-        []);
+        });
      
     return (
         <div>
@@ -50,9 +49,9 @@ const AssignmentsStudentView = (props) => {
                 {assignments.map((a) => (
                     <tr key={a.id}>
                         <td>{a.courseId}</td>
+                        <td>{a.courseTitle}</td>
                         <td>{a.title}</td>
                         <td>{a.dueDate}</td>
-                        <td>{a.id}</td>
                         <td>{a.score}</td>
                     </tr>
                 ))}

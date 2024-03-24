@@ -49,22 +49,22 @@ const AssignmentAdd = (props)  => {
 
     return (
         <>
-            <Button onClick={editOpen}>Add Assignment</Button>
+            <Button id="addAssignment" onClick={editOpen}>Add Assignment</Button>
             <Dialog open={open} >
                 <DialogTitle>Add Assignment</DialogTitle>
                 <DialogContent style={{paddingTop: 20}} >
                     <h4>{editMessage}</h4>
-                    <TextField style={{padding:10}} fullWidth label="Assignment Title" name="title"
-                        value={assignment.title} onChange={editChange} /> 
-                    Due Date: <input type="date" style={{padding:15, margin:10}} fullWidth label="dueDate" name="dueDate"
-                        value={assignment.dueDate} onChange={editChange} />
+                    <TextField style={{padding:10}} id="assignmentTitle" fullWidth label="Assignment Title" name="title"
+                        onChange={editChange} /> 
+                    Due Date: <input type="date" id="assignmentDate" style={{padding:15, margin:10}} fullWidth label="dueDate" name="dueDate"
+                        onChange={editChange} />
                     <input type="hidden" name="courseId" value={assignment.courseId} />
                     <input type="hidden" name="secId" value={assignment.secId} />
                     <input type="hidden" name="secNo" value={assignment.secNo} />
                 </DialogContent>
                 <DialogActions>
-                    <Button color="secondary" onClick={editClose}>Close</Button>
-                    <Button color="primary" onClick={onSave}>Save</Button>
+                    <Button color="secondary" id="closeButton" onClick={editClose}>Close</Button>
+                    <Button color="primary" id="saveButton" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog> 
         </>                       

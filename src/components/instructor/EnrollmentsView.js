@@ -14,7 +14,7 @@ import Button from "@mui/material/Button";
 const EnrollmentsView = (props) => {
 
     const location = useLocation();
-    const {secNo, courseId, secId} = location.state;
+    const {secNo, courseTitle} = location.state;
 
     const headers = ['Enrollment ID', 'Student ID', 'Name', 'Email', 'Grade']
 
@@ -28,12 +28,13 @@ const EnrollmentsView = (props) => {
             if (response.ok) {
                 const enrollments = await response.json();
                 setEnrollments(enrollments);
+                (enrollments[0] == undefined) ? setMessage("There are no enrollments in this Course") : setMessage("");
             } else {
                 const json = await response.json();
-                setMessage('response error: '+json.message);
+                setMessage('response error: ' + json.message);
             }
         } catch (err) {
-            setMessage('network error: '+err);
+            setMessage('network error: ' + err);
         }
     }
 
@@ -52,7 +53,7 @@ const EnrollmentsView = (props) => {
     }
 
 
-    const saveEnrollment = async () => {
+    const saveEnrollments = async () => {
         try {
             console.log(JSON.stringify(enrollments));
             const response = await fetch(`${SERVER_URL}/enrollments?instructorEmail=dwisneski@csumb.edu`,
@@ -64,7 +65,7 @@ const EnrollmentsView = (props) => {
                     body: JSON.stringify(enrollments),
                 });
             if (response.ok) {
-                setMessage('Enrollment Save');
+                setMessage('Grades Saved');
                 fetchEnrollments();
             } else {
                 const json = await response.json();
@@ -77,7 +78,7 @@ const EnrollmentsView = (props) => {
 
     return(
         <> 
-            <h3>Enrollments</h3>
+            <h3>Enrollments for {courseTitle}</h3>
             <h4>{message}</h4>
             <table className="Center">
                 <thead>
@@ -103,7 +104,7 @@ const EnrollmentsView = (props) => {
                 ))}
                 </tbody>
             </table>
-            <Button onClick={saveEnrollment}>Save Enrollments</Button>
+            <Button onClick={saveEnrollments}>Save Enrollments</Button>
         </>
     );
 }

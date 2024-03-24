@@ -14,7 +14,7 @@ import {Link, useLocation} from "react-router-dom";
 // <Link to="/assignments" state={section}>View Assignments</Link>
 
 const InstructorSectionsView = (props) => {
-    const headers = ['Section No.', 'Course ID','Section ID', 'Building', 'Room', 'Times', '', '']
+    const headers = ['Section No.', 'Course ID', 'Course Title', 'Section ID', 'Building', 'Room', 'Times', '', '']
 
     const location = useLocation();
     const { year, semester } = location.state;
@@ -57,6 +57,7 @@ const InstructorSectionsView = (props) => {
                     <tr key = {s.secId}>
                         <td>{s.secNo}</td>
                         <td>{s.courseId}</td>
+                        <td>{s.courseTitle}</td>
                         <td>{s.secId}</td>
                         <td>{s.building}</td>
                         <td>{s.room}</td>

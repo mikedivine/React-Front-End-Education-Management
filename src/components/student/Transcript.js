@@ -9,7 +9,7 @@ import {SERVER_URL} from '../../Constants';
 
 const Transcript = (props) => {
     
-    const headers = ['Year', 'Semester', 'CourseId', 'SectionId', 'Title', 'Credits', 'Grade', '', ''];
+    const headers = ['Year', 'Semester', 'Course ID', 'Course Title', 'Section ID', 'Credits', 'Grade'];
     const [transcript, setTranscript]  = useState([   ]);
     const [ message, setMessage] = useState('');
     const [search, setSearch] = useState({studentId: ''});
@@ -70,8 +70,8 @@ const Transcript = (props) => {
                         <td>{s.year}</td>
                         <td>{s.semester}</td>
                         <td>{s.courseId}</td>
+                        <td>{s.courseTitle}</td>
                         <td>{s.sectionId}</td>
-                        <td>{s.title}</td>
                         <td>{s.credits}</td>
                         <td>{s.grade}</td>
                         </tr>
