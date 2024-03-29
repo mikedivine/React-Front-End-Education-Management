@@ -25,7 +25,7 @@ function App() {
   const userType = 'STUDENT'; // change to INSTRUCTOR or STUDENT for testing.
 
 
-  if (userType==='ADMIN') {
+  if (userType === 'ADMIN') {
     return (
       <div className="App">
       <BrowserRouter>
@@ -40,7 +40,7 @@ function App() {
         </BrowserRouter>
       </div>
     )
-  } else if (userType==='STUDENT') {
+  } else if (userType === 'STUDENT') {
     return (
       <div className="App">
       <BrowserRouter>
@@ -56,7 +56,7 @@ function App() {
         </BrowserRouter>
       </div>
     )
-  } else if (userType==='INSTRUCTOR') {
+  } else if (userType === 'INSTRUCTOR') {
     return (
       <div className="App">
       <BrowserRouter>
