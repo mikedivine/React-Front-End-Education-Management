@@ -4,7 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import CourseUpdate from './CourseUpdate';
 import CourseAdd from './CourseAdd';
 import Button from '@mui/material/Button';
-import {SERVER_URL} from '../../Constants';
+import {REGISTRAR} from '../../Constants';
 
 function CoursesView(props) {
     const headers = ['CourseId', 'Title', 'Credits',  '', ''];
@@ -15,7 +15,7 @@ function CoursesView(props) {
 
     const  fetchCourses = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/courses`);
+        const response = await fetch(`${REGISTRAR}/courses`);
         if (response.ok) {
           const courses = await response.json();
           setCourses(courses);
@@ -24,7 +24,7 @@ function CoursesView(props) {
           setMessage("response error: "+json.message);
         }
       } catch (err) {
-        setMessage("network error: "+err);
+        setMessage("network error: " + err);
       }  
     }
 
@@ -34,7 +34,7 @@ function CoursesView(props) {
 
     const saveCourse = async (course) => {
       try {
-        const response = await fetch (`${SERVER_URL}/courses`, 
+        const response = await fetch (`${REGISTRAR}/courses`, 
             {
               method: 'PUT',
               headers: {
@@ -56,7 +56,7 @@ function CoursesView(props) {
 
     const addCourse = async (course) => {
       try {
-        const response = await fetch (`${SERVER_URL}/courses`, 
+        const response = await fetch (`${REGISTRAR}/courses`, 
             {
               method: 'POST',
               headers: {
@@ -78,7 +78,7 @@ function CoursesView(props) {
 
     const deleteCourse = async (courseId) => {
       try {
-        const response = await fetch (`${SERVER_URL}/courses/${courseId}`, 
+        const response = await fetch (`${REGISTRAR}/courses/${courseId}`, 
             {
               method: 'DELETE',
               headers: {

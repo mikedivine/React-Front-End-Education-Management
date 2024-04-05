@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
-import {SERVER_URL} from '../../Constants';
+import {GRADEBOOK} from '../../Constants';
 import Button from "@mui/material/Button";
 
 // instructor view list of students enrolled in a section 
@@ -24,7 +24,7 @@ const EnrollmentsView = (props) => {
 
     const fetchEnrollments = async () => {
         try{
-            const response = await fetch(`${SERVER_URL}/sections/${secNo}/enrollments?instructorEmail=dwisneski@csumb.edu`);
+            const response = await fetch(`${GRADEBOOK}/sections/${secNo}/enrollments?instructorEmail=dwisneski@csumb.edu`);
             if (response.ok) {
                 const enrollments = await response.json();
                 setEnrollments(enrollments);
@@ -56,7 +56,7 @@ const EnrollmentsView = (props) => {
     const saveEnrollments = async () => {
         try {
             console.log(JSON.stringify(enrollments));
-            const response = await fetch(`${SERVER_URL}/enrollments?instructorEmail=dwisneski@csumb.edu`,
+            const response = await fetch(`${GRADEBOOK}/enrollments?instructorEmail=dwisneski@csumb.edu`,
                 {
                     method: 'PUT',
                     headers: {

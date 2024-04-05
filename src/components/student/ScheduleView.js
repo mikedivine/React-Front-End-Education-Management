@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SERVER_URL} from '../../Constants';
+import {REGISTRAR} from '../../Constants';
 import {Link, useLocation} from "react-router-dom";
 import Button from "@mui/material/Button";
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -26,7 +26,7 @@ const ScheduleView = (props) => {
             setMessage("Enter search parameters");
         } else {
             try {
-                const response = await fetch(`${SERVER_URL}/enrollments?year=${search.year}&semester=${search.semester}&studentId=${search.studentId}`);
+                const response = await fetch(`${REGISTRAR}/enrollments?year=${search.year}&semester=${search.semester}&studentId=${search.studentId}`);
 
                 if (response.ok) {
                     const data = await response.json();
@@ -51,7 +51,7 @@ const ScheduleView = (props) => {
 
     const dropCourse = async (enrollmentId) => {
         try {
-          const response = await fetch (`${SERVER_URL}/enrollments/${enrollmentId}?studentId=3`, 
+          const response = await fetch (`${REGISTRAR}/enrollments/${enrollmentId}?studentId=3`, 
               {
                 method: 'DELETE',
                 headers: {

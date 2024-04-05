@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import {SERVER_URL} from '../../Constants';
+import {REGISTRAR} from '../../Constants';
 
 const SectionUpdate = (props)  => {
 
@@ -41,7 +41,7 @@ const SectionUpdate = (props)  => {
 
     const saveSection = async (section) => {
         try {
-          const response = await fetch (`${SERVER_URL}/sections`, 
+          const response = await fetch (`${REGISTRAR}/sections`, 
             {
               method: 'PUT',
               headers: {

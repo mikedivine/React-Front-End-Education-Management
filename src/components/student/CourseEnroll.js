@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import SectionUpdate from "../admin/SectionUpdate";
 import Button from "@mui/material/Button";
-import {SERVER_URL} from "../../Constants";
+import {REGISTRAR} from "../../Constants";
 
 // students displays a list of open sections for a 
 // use the URL /sections/open
@@ -19,7 +19,7 @@ const CourseEnroll = (props) => {
 
     const  fetchSections = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/sections/open`);
+            const response = await fetch(`${REGISTRAR}/sections/open`);
             if (response.ok) {
                 const sections = await response.json();
                 setSections(sections);
@@ -42,7 +42,7 @@ const CourseEnroll = (props) => {
         const secNo = sections[row_idx].secNo;
         setMessage(secNo);
         try{
-            const response = await fetch (`${SERVER_URL}/enrollments/sections/${secNo}?studentId=3`, 
+            const response = await fetch (`${REGISTRAR}/enrollments/sections/${secNo}?studentId=3`, 
             {
               method: 'POST',
               headers: {

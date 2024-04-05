@@ -1,4 +1,4 @@
-import {SERVER_URL} from '../../Constants';
+import {GRADEBOOK} from '../../Constants';
 import React, {useState, useEffect} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import TextField from '@mui/material/TextField';
@@ -26,7 +26,7 @@ const AssignmentGrade = (props) => {
 
     const fetchGrades = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/assignments/${assignmentId}/grades?instructorEmail=dwisneski@csumb.edu`);
+            const response = await fetch(`${GRADEBOOK}/assignments/${assignmentId}/grades?instructorEmail=dwisneski@csumb.edu`);
             if (response.ok) {
                 const grades = await response.json();
                 setGrades(grades);
@@ -41,7 +41,7 @@ const AssignmentGrade = (props) => {
 
     const saveGrades = async () => {
         try {
-          const response = await fetch (`${SERVER_URL}/grades?instructorEmail=dwisneski@csumb.edu`, 
+          const response = await fetch (`${GRADEBOOK}/grades?instructorEmail=dwisneski@csumb.edu`, 
               {
                 method: 'PUT',
                 headers: {

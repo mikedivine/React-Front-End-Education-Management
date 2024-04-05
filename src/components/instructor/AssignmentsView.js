@@ -1,4 +1,4 @@
-import {SERVER_URL} from '../../Constants';
+import {GRADEBOOK} from '../../Constants';
 import React, {useState, useEffect} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -27,7 +27,7 @@ const AssignmentsView = (props) => {
 
     const fetchAssignments = async () => {
         try{
-            const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments?instructorEmail=dwisneski@csumb.edu`);
+            const response = await fetch(`${GRADEBOOK}/sections/${secNo}/assignments?instructorEmail=dwisneski@csumb.edu`);
             if (response.ok){
                 const assignments = await response.json();
                 setAssignments(assignments);
@@ -46,7 +46,7 @@ const AssignmentsView = (props) => {
 
     const saveAssignment = async (assignment) => {
         try {
-          const response = await fetch (`${SERVER_URL}/assignments?instructorEmail=dwisneski@csumb.edu`, 
+          const response = await fetch (`${GRADEBOOK}/assignments?instructorEmail=dwisneski@csumb.edu`, 
               {
                 method: 'PUT',
                 headers: {
@@ -68,7 +68,7 @@ const AssignmentsView = (props) => {
   
       const addAssignment = async (assignment) => {
         try {
-          const response = await fetch (`${SERVER_URL}/assignments?instructorEmail=dwisneski@csumb.edu`, 
+          const response = await fetch (`${GRADEBOOK}/assignments?instructorEmail=dwisneski@csumb.edu`, 
               {
                 method: 'POST',
                 headers: {
@@ -90,7 +90,7 @@ const AssignmentsView = (props) => {
   
       const deleteAssignment = async (assignmentId) => {
         try {
-          const response = await fetch (`${SERVER_URL}/assignments/${assignmentId}?instructorEmail=dwisneski@csumb.edu`, 
+          const response = await fetch (`${GRADEBOOK}/assignments/${assignmentId}?instructorEmail=dwisneski@csumb.edu`, 
               {
                 method: 'DELETE',
                 headers: {

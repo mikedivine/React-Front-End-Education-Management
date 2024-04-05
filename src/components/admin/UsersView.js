@@ -4,7 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import UserUpdate from './UserUpdate';
 import UserAdd from './UserAdd';
 import Button from '@mui/material/Button';
-import {SERVER_URL} from '../../Constants';
+import {REGISTRAR} from '../../Constants';
 
 function UsersView(props) {
     const headers = ['ID', 'Name', 'Email', 'Type', '', ''];
@@ -15,7 +15,7 @@ function UsersView(props) {
 
     const  fetchUsers = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/users`);
+        const response = await fetch(`${REGISTRAR}/users`);
         if (response.ok) {
           const users = await response.json();
           setUsers(users);
@@ -34,7 +34,7 @@ function UsersView(props) {
 
     const saveUser = async (user) => {
       try {
-        const response = await fetch(`${SERVER_URL}/users`,
+        const response = await fetch(`${REGISTRAR}/users`,
           {
             method: 'PUT',
             headers: {
@@ -56,7 +56,7 @@ function UsersView(props) {
 
     const addUser = async (user) => {
       try {
-        const response = await  fetch(`${SERVER_URL}/users`,
+        const response = await  fetch(`${REGISTRAR}/users`,
           {
             method: 'POST',
             headers: {
@@ -79,7 +79,7 @@ function UsersView(props) {
 
     const deleteUser = async (id) => {
       try {
-        const response = await fetch(`${SERVER_URL}/users/${id}`,
+        const response = await fetch(`${REGISTRAR}/users/${id}`,
           {
             method: 'DELETE',
             headers: {

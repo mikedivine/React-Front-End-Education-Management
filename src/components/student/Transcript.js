@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SERVER_URL} from '../../Constants';
+import {REGISTRAR} from '../../Constants';
 
 // students gets a list of all courses taken and grades
 // use the URL /transcript?studentId=
@@ -19,7 +19,7 @@ const Transcript = (props) => {
             setMessage("Enter student ID");
         } else {
             try {
-                const response = await fetch(`${SERVER_URL}/transcripts?studentId=${search.studentId}`);
+                const response = await fetch(`${REGISTRAR}/transcripts?studentId=${search.studentId}`);
                 if (response.ok) {
                     const data = await response.json();
                     setTranscript(data);
