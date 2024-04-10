@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { SERVER_URL } from '../../Constants';
 
 // students gets a list of all courses taken and grades
 // use the URL /transcript?studentId=
@@ -7,9 +8,6 @@ import React, {useState, useEffect} from 'react';
 //  Year, Semester, CourseId, SectionId, Title, Credits, Grade
 
 const Transcript = (props) => {
-<<<<<<< Updated upstream
-     
-=======
     
     const headers = ['Year', 'Semester', 'Course ID', 'Course Title', 'Section ID', 'Credits', 'Grade'];
     const [transcript, setTranscript]  = useState([   ]);
@@ -22,7 +20,7 @@ const Transcript = (props) => {
         } else {
             try {
                 const jwt = sessionStorage.getItem('jwt');
-                const response = await fetch(`${REGISTRAR}/transcripts`,
+                const response = await fetch(`${SERVER_URL}/transcripts`,
                     {headers: {
                         'Authorization' : jwt,
                     }});
@@ -47,7 +45,6 @@ const Transcript = (props) => {
         setSearch({...search, [event.target.name]:event.target.value});
     }
 
->>>>>>> Stashed changes
     return(
         <> 
             <h3>Not implemented</h3>

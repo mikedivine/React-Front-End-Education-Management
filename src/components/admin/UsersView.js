@@ -15,15 +15,11 @@ function UsersView(props) {
 
     const  fetchUsers = async () => {
       try {
-<<<<<<< Updated upstream
-        const response = await fetch(`${SERVER_URL}/users`);
-=======
         const jwt = sessionStorage.getItem('jwt');
-        const response = await fetch(`${REGISTRAR}/users`,
+        const response = await fetch(`${SERVER_URL}/users`,
           {headers: {
               'Authorization' : jwt,
           }});
->>>>>>> Stashed changes
         if (response.ok) {
           const users = await response.json();
           setUsers(users);
@@ -42,12 +38,8 @@ function UsersView(props) {
 
     const saveUser = async (user) => {
       try {
-<<<<<<< Updated upstream
-        const response = await fetch(`${SERVER_URL}/users`,
-=======
         const jwt = sessionStorage.getItem('jwt');
-        const response = await fetch(`${REGISTRAR}/users`,
->>>>>>> Stashed changes
+        const response = await fetch(`${SERVER_URL}/users`,
           {
             method: 'PUT',
             headers: {
@@ -70,12 +62,8 @@ function UsersView(props) {
 
     const addUser = async (user) => {
       try {
-<<<<<<< Updated upstream
-        const response = await  fetch(`${SERVER_URL}/users`,
-=======
         const jwt = sessionStorage.getItem('jwt');
-        const response = await  fetch(`${REGISTRAR}/users`,
->>>>>>> Stashed changes
+        const response = await  fetch(`${SERVER_URL}/users`,
           {
             method: 'POST',
             headers: {
@@ -99,12 +87,8 @@ function UsersView(props) {
 
     const deleteUser = async (id) => {
       try {
-<<<<<<< Updated upstream
-        const response = await fetch(`${SERVER_URL}/users/${id}`,
-=======
         const jwt = sessionStorage.getItem('jwt');
-        const response = await fetch(`${REGISTRAR}/users/${id}`,
->>>>>>> Stashed changes
+        const response = await fetch(`${SERVER_URL}/users/${id}`,
           {
             method: 'DELETE',
             headers: {

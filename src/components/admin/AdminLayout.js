@@ -1,4 +1,27 @@
 import { Outlet, Link } from "react-router-dom";
+import UsersView from './UsersView';
+import CoursesView from './CoursesView';
+import SectionsView from './SectionsView';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Logout from '../../Logout.js'
+
+export const AdminRouter = (props) => {
+  return (
+    <div className="App">
+      <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AdminLayout />} >
+              <Route index element={<AdminHome />} />
+              <Route path="users" element={<UsersView />} />
+              <Route path="courses" element={<CoursesView />} />
+              <Route path="sections" element={<SectionsView />} />
+              <Route path="logout" element={<Logout logout={props.logout}/>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+  )
+}
 
 export const AdminHome = () => {
 
@@ -16,9 +39,9 @@ export const AdminLayout = () => {
     <>
       <nav>
         <Link to="/">Home</Link> &nbsp;|&nbsp;   
-        <Link to="/users">Users</Link>&nbsp;|&nbsp;  
-        <Link to="/courses">Courses</Link>&nbsp;|&nbsp;  
-        <Link to="/sections">Sections</Link>
+        <Link id="users" to="/users">Users</Link>&nbsp;|&nbsp;  
+        <Link id="courses" to="/courses">Courses</Link>&nbsp;|&nbsp;  
+        <Link id="sections" to="/sections">Sections</Link>
       </nav>
 
       <Outlet />
