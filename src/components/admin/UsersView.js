@@ -15,7 +15,15 @@ function UsersView(props) {
 
     const  fetchUsers = async () => {
       try {
+<<<<<<< Updated upstream
         const response = await fetch(`${SERVER_URL}/users`);
+=======
+        const jwt = sessionStorage.getItem('jwt');
+        const response = await fetch(`${REGISTRAR}/users`,
+          {headers: {
+              'Authorization' : jwt,
+          }});
+>>>>>>> Stashed changes
         if (response.ok) {
           const users = await response.json();
           setUsers(users);
@@ -34,11 +42,17 @@ function UsersView(props) {
 
     const saveUser = async (user) => {
       try {
+<<<<<<< Updated upstream
         const response = await fetch(`${SERVER_URL}/users`,
+=======
+        const jwt = sessionStorage.getItem('jwt');
+        const response = await fetch(`${REGISTRAR}/users`,
+>>>>>>> Stashed changes
           {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization' : jwt
             }, 
             body: JSON.stringify(user),
           });
@@ -56,11 +70,17 @@ function UsersView(props) {
 
     const addUser = async (user) => {
       try {
+<<<<<<< Updated upstream
         const response = await  fetch(`${SERVER_URL}/users`,
+=======
+        const jwt = sessionStorage.getItem('jwt');
+        const response = await  fetch(`${REGISTRAR}/users`,
+>>>>>>> Stashed changes
           {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization' : jwt
             }, 
             body: JSON.stringify(user),
           });
@@ -79,11 +99,17 @@ function UsersView(props) {
 
     const deleteUser = async (id) => {
       try {
+<<<<<<< Updated upstream
         const response = await fetch(`${SERVER_URL}/users/${id}`,
+=======
+        const jwt = sessionStorage.getItem('jwt');
+        const response = await fetch(`${REGISTRAR}/users/${id}`,
+>>>>>>> Stashed changes
           {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization' : jwt
             }, 
           });
         if (response.ok) {

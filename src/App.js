@@ -1,4 +1,5 @@
 import './App.css';
+<<<<<<< Updated upstream
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UsersView from './components/admin/UsersView';
@@ -14,6 +15,13 @@ import InstructorHome from './components/instructor/InstructorHome';
 import AssignmentsView from './components/instructor/AssignmentsView';
 import EnrollmentsView from './components/instructor/EnrollmentsView';
 import InstructorSectionsView from './components/instructor/InstructorSectionsView';
+=======
+import React, {useState } from 'react';
+import {AdminRouter} from './components/admin/AdminLayout';
+import {StudentRouter} from './components/student/StudentLayout';
+import {InstructorRouter} from './components/instructor/InstructorLayout';
+import Login from './Login';
+>>>>>>> Stashed changes
 
 
 function App() {
@@ -21,6 +29,7 @@ function App() {
   // change to INSTRUCTOR or STUDENT for testing.  
   // when login is implemented, the user type will come from the logged in user's ROLE.
 
+<<<<<<< Updated upstream
   const userType = 'INSTRUCTOR'; // change to INSTRUCTOR or STUDENT for testing.  
 
   if (userType==='ADMIN') {
@@ -67,6 +76,29 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
+=======
+  const logout = () => {
+    setAuth(false);
+    sessionStorage.removeItem("jwt");
+  }
+
+  if (! isAuthenticated) {
+      return (
+        <Login setAuth={setAuth} setUserType={setUserType} />
+      );
+  } else if (userType==='ADMIN') {
+      return (
+        <AdminRouter logout={logout}/>
+      )
+  } else if (userType==='STUDENT') {
+      return (
+        <StudentRouter logout={logout}/>
+      )
+
+  } else if (userType==='INSTRUCTOR') {
+    return (
+      <InstructorRouter logout={logout} />
+>>>>>>> Stashed changes
     )
 
   } else {
