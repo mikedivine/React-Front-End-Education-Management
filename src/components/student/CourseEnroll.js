@@ -16,10 +16,17 @@ const CourseEnroll = (props) => {
     const headers = ['Section #', 'Course Title', 'Course Id', 'Section Id',  'Year', 'Semester', 'Building', 'Room', 'Times', ''];
     const[sections, setSections] = useState([ ]);
     const [ message, setMessage ] = useState('');
+    const jwt = sessionStorage.getItem('jwt');
 
     const  fetchSections = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/sections/open`);
+            const response = await fetch(`${SERVER_URL}/sections/open`,
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': jwt,
+              }
+            });
             if (response.ok) {
                 const sections = await response.json();
                 setSections(sections);
@@ -47,6 +54,7 @@ const CourseEnroll = (props) => {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'Authorization': jwt,
               }
             });
             if (response.ok) {

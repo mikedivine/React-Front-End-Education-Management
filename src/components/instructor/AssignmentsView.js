@@ -18,16 +18,21 @@ import Button from '@mui/material/Button';
 const AssignmentsView = (props) => {
 
     const headers = ['Assignment ID', 'Course Title', 'Assignment Title','Due Date', 'Course ID', 'Section ID', 'Section No.']
-    
     const location = useLocation();
     const {secNo} = location.state;
-
     const [ assignments, setAssignments ] = useState([]);
     const [ message, setMessage ] = useState('');
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchAssignments = async () => {
         try{
-            const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments?instructorEmail=dwisneski@csumb.edu`);
+            const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments?instructorEmail=dwisneski@csumb.edu`,
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': jwt,
+              }
+            });
             if (response.ok){
                 const assignments = await response.json();
                 setAssignments(assignments);
@@ -42,7 +47,7 @@ const AssignmentsView = (props) => {
 
     useEffect(() => {
         fetchAssignments();
-    }, [secNo])
+    }, [secNo]);
 
     const saveAssignment = async (assignment) => {
         try {
@@ -51,6 +56,7 @@ const AssignmentsView = (props) => {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': jwt,
                 }, 
                 body: JSON.stringify(assignment),
               });
@@ -73,6 +79,7 @@ const AssignmentsView = (props) => {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': jwt,
                 }, 
                 body: JSON.stringify(assignment),
               });
@@ -95,6 +102,7 @@ const AssignmentsView = (props) => {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': jwt,
                 }, 
               });
           if (response.ok) {

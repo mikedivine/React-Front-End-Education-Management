@@ -3,7 +3,7 @@ import UsersView from './UsersView';
 import CoursesView from './CoursesView';
 import SectionsView from './SectionsView';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Logout from '../../Logout.js'
+import Logout from '../../Logout.js';
 
 export const AdminRouter = (props) => {
   return (

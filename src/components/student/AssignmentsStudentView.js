@@ -13,10 +13,17 @@ const AssignmentsStudentView = (props) => {
     const [ assignments, setAssignments ] = useState([ ]);
     const [ message, setMessage ] = useState('');
     const [ search, setSearch ] = useState({year: '', semester:''});
+    const jwt = sessionStorage.getItem('jwt');
 
     const  fetchAssignments = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/assignments?studentId=3&year=${search.year}&semester=${search.semester}`);
+            const response = await fetch(`${SERVER_URL}/assignments?studentId=3&year=${search.year}&semester=${search.semester}`,
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': jwt,
+              }
+            });
             if (response.ok) {
                 const assignments = await response.json();
                 setAssignments(assignments);
