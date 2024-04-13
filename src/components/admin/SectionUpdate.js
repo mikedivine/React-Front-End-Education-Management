@@ -9,6 +9,7 @@ import {SERVER_URL} from '../../Constants';
 
 const SectionUpdate = (props)  => {
 
+    const jwt = sessionStorage.getItem('jwt');
     const [open, setOpen] = useState(false);
     const [editMessage, setEditMessage] = useState('');
     const [section, setSection] = useState(
@@ -46,6 +47,7 @@ const SectionUpdate = (props)  => {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
+                'Authorization': jwt,
               }, 
               body: JSON.stringify(section),
             });

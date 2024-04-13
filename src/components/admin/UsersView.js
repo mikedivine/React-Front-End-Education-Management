@@ -8,14 +8,19 @@ import {SERVER_URL} from '../../Constants';
 
 function UsersView(props) {
     const headers = ['ID', 'Name', 'Email', 'Type', '', ''];
-    
     const [users, setUsers] = useState([  ]);
-
     const [message, setMessage] = useState('');
+    const jwt = sessionStorage.getItem('jwt');
 
     const  fetchUsers = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/users`);
+        const response = await fetch(`${SERVER_URL}/users`,
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': jwt,
+          }
+        });
         if (response.ok) {
           const users = await response.json();
           setUsers(users);
@@ -30,7 +35,7 @@ function UsersView(props) {
 
     useEffect( () => {
       fetchUsers();
-    }, []);
+    });
 
     const saveUser = async (user) => {
       try {
@@ -39,6 +44,7 @@ function UsersView(props) {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': jwt,
             }, 
             body: JSON.stringify(user),
           });
@@ -61,6 +67,7 @@ function UsersView(props) {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': jwt,
             }, 
             body: JSON.stringify(user),
           });
@@ -84,6 +91,7 @@ function UsersView(props) {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': jwt,
             }, 
           });
         if (response.ok) {
