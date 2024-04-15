@@ -15,18 +15,22 @@ import Button from '@mui/material/Button';
 const AssignmentGrade = (props) => {
 
     const headers = ['Grade ID', 'Student Name','Student Email', 'Score']
-
     const location = useLocation();
     const {assignmentId,assignmentTitle} = location.state;
-
     const [ grades, setGrades ] = useState([]);
-    const [ grade, setGrade ] = useState({gradeId:'', studntName:'', studentEmail:'', assignmentTitle:'',
-                                            courseId:'', sectionId:'', score:''});
+    const [ grade, setGrade ] = useState({gradeId:'', studntName:'', studentEmail:'', assignmentTitle:'',courseId:'', sectionId:'', score:''});
     const [ message, setMessage ] = useState('');
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchGrades = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/assignments/${assignmentId}/grades?instructorEmail=dwisneski@csumb.edu`);
+            const response = await fetch(`${SERVER_URL}/assignments/${assignmentId}/grades?instructorEmail=dwisneski@csumb.edu`,
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': jwt,
+              }
+            });
             if (response.ok) {
                 const grades = await response.json();
                 setGrades(grades);
@@ -46,6 +50,7 @@ const AssignmentGrade = (props) => {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': jwt,
                 }, 
                 body: JSON.stringify(grades),
               });
