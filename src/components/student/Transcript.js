@@ -13,13 +13,20 @@ const Transcript = (props) => {
     const [transcript, setTranscript]  = useState([   ]);
     const [ message, setMessage] = useState('');
     const [search, setSearch] = useState({studentId: ''});
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchTranscript = async() => {
         if (search.studentId==='') {
             setMessage("Enter student ID");
         } else {
             try {
-                const response = await fetch(`${SERVER_URL}/transcripts?studentId=${search.studentId}`);
+                const response = await fetch(`${SERVER_URL}/transcripts?studentId=${search.studentId}`,
+                {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': jwt,
+                  }
+                });
                 if (response.ok) {
                     const data = await response.json();
                     setTranscript(data);

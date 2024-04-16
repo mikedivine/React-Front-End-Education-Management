@@ -15,16 +15,20 @@ const EnrollmentsView = (props) => {
 
     const location = useLocation();
     const {secNo, courseTitle} = location.state;
-
     const headers = ['Enrollment ID', 'Student ID', 'Name', 'Email', 'Grade']
-
     const [ message, setMessage] = useState('');
-
     const [ enrollments, setEnrollments] = useState([]);
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchEnrollments = async () => {
         try{
-            const response = await fetch(`${SERVER_URL}/sections/${secNo}/enrollments?instructorEmail=dwisneski@csumb.edu`);
+            const response = await fetch(`${SERVER_URL}/sections/${secNo}/enrollments?instructorEmail=dwisneski@csumb.edu`,
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': jwt,
+              }
+            });
             if (response.ok) {
                 const enrollments = await response.json();
                 setEnrollments(enrollments);
@@ -61,6 +65,7 @@ const EnrollmentsView = (props) => {
                     method: 'PUT',
                     headers: {
                         'Content-Type':'application/json',
+                        'Authorization': jwt,
                     },
                     body: JSON.stringify(enrollments),
                 });

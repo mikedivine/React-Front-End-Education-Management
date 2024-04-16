@@ -16,17 +16,23 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 const ScheduleView = (props) => {
     
     const headers = ['Section #', 'Course Title', 'Course Id', 'Section Id',  'Year', 'Semester', 'Building', 'Room', 'Times'];
-
     const [scheduleClasses, setScheduleClasses]  = useState([   ]);
     const [ message, setMessage] = useState('');
     const [search, setSearch] = useState({studentId: '', year: '', semester:''});
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchSchedule = async() => {
         if (search.courseId==='' || search.year==='' || search.semester==='' ) {
             setMessage("Enter search parameters");
         } else {
             try {
-                const response = await fetch(`${SERVER_URL}/enrollments?year=${search.year}&semester=${search.semester}&studentId=${search.studentId}`);
+                const response = await fetch(`${SERVER_URL}/enrollments?year=${search.year}&semester=${search.semester}&studentId=${search.studentId}`,
+                {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': jwt,
+                  }
+                });
 
                 if (response.ok) {
                     const data = await response.json();
@@ -56,6 +62,7 @@ const ScheduleView = (props) => {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': jwt,
                 }, 
               });
           if (response.ok) {
@@ -142,9 +149,7 @@ const ScheduleView = (props) => {
             </table>
 
         </ >
-    );
-
-    
+    );   
 }
 
 export default ScheduleView;

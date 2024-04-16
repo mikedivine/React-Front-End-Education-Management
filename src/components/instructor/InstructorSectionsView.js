@@ -15,17 +15,21 @@ import {Link, useLocation} from "react-router-dom";
 
 const InstructorSectionsView = (props) => {
     const headers = ['Section No.', 'Course ID', 'Course Title', 'Section ID', 'Building', 'Room', 'Times', '', '']
-
     const location = useLocation();
     const { year, semester } = location.state;
-
     const [ sections, setSections ] = useState([]);
-
     const [ message, setMessage ] = useState('');
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchSections = async () => {
         try{
-            const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year=${year}&semester=${semester}`);
+            const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year=${year}&semester=${semester}`,
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': jwt,
+              }
+            });
             if (response.ok){
                 const sections = await response.json();
                 setSections(sections);
